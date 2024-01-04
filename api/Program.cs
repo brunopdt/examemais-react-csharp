@@ -1,3 +1,8 @@
+using api.Data;
+using api.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 namespace api
 {
     public class Program
@@ -6,12 +11,17 @@ namespace api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            string connectionString = "jdbc:postgresql://localhost:5432/revende?user=postgres&password=121201gui";
+
+            builder.Services.AddDbContext<ClinicContext>(options =>
+           options.UseNpgsql(connectionString));
+  
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
 
             var app = builder.Build();
 
