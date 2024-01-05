@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "dIwXtN57OL/5M4rEFYskFRnWjGYXvA8X+jqdz5kPO3hrDMhQFNrBbvIwDFouyTKsSMRjB2CvwDL0uiTuG795nQ==",
+  "dgSpecHash": "do2GvxRIws1xVVPHniDTkktshTlRsMDSHJmpq7UalRPt2uewUnEqTZrycAxbsphYSQQbihjRhadaX9EaCz+VXQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\guilh\\Desktop\\examemais-react-csharp\\api\\api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\guilh\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\guilh\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\guilh\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.25\\microsoft.entityframeworkcore.6.0.25.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.25\\microsoft.entityframeworkcore.abstractions.6.0.25.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.25\\microsoft.entityframeworkcore.analyzers.6.0.25.nupkg.sha512",

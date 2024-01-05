@@ -18,7 +18,19 @@ public class UserController : ControllerBase
     [HttpPost("AddUser")]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequestDTO user)
     {
-       await _userService.AddNewUser(user);
-        return Ok();
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _userService.AddNewUser(user);
+            return Ok("Usuário criado com sucesso");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Ocorreu um erro ao processar a solicitação.");
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using api.Enums;
-using System.Security;
+﻿using System.Security;
 
 namespace api.Models;
 
@@ -9,7 +8,6 @@ public class UserModel
     public string FullName { get; set; }
     public string Email { get; set; }
     public string Cpf { get; set; }
-    public SecureString Password { get; set; }
-    public UserTypeEnum UserTypeEnum { get; set; }
+    public string Password { get; set; }
 }
 

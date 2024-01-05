@@ -1,4 +1,4 @@
-﻿using api.Repositories;
+﻿using api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data;
@@ -10,6 +10,6 @@ public class ClinicContext : DbContext
         
     }
 
-    public DbSet<UserRepository> Users { get; set; }
+    public DbSet<UserModel> Users { get; set; }
 }
 

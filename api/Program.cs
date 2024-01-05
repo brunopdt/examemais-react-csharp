@@ -1,7 +1,11 @@
 using api.Data;
+using api.Services;
 using api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using AutoMapper;
+using api.Repositories.Interfaces;
+using api.Repositories;
+using Microsoft.Extensions.Configuration; 
 
 namespace api
 {
@@ -11,21 +15,27 @@ namespace api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            string connectionString = "jdbc:postgresql://localhost:5432/revende?user=postgres&password=121201gui";
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(builder.Environment.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string connectionString = configuration.GetConnectionString("clinic");
 
             builder.Services.AddDbContext<ClinicContext>(options =>
-           options.UseNpgsql(connectionString));
-  
+                options.UseNpgsql(connectionString));
+
+            builder.Services.AddAutoMapper(typeof(RequestToEntity));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IMapper, Mapper>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -33,12 +43,8 @@ namespace api
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }

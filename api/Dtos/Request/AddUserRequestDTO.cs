@@ -1,5 +1,4 @@
-﻿using api.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Security;
 
 namespace api.Dtos.Request;
@@ -17,8 +16,5 @@ public class AddUserRequestDTO
 
     [Required(ErrorMessage = "The password field is mandatory")]
     public string Password { get; set; }
-
-    [Required(ErrorMessage = "The user type field is mandatory")]
-    public UserTypeEnum UserTypeEnum { get; set; }
 }
 
