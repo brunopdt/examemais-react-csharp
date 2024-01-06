@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -15,8 +15,8 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost("AddUser")]
-    public async Task<IActionResult> AddUser([FromBody] AddUserRequestDTO user)
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterNewUser([FromBody] RegisterNewUserRequestDTO user)
     {
         try
         {
@@ -25,7 +25,7 @@ public class UserController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            await _userService.AddNewUser(user);
+            await _userService.RegisterNewUser(user);
             return Ok("Usuário criado com sucesso");
         }
         catch (Exception ex)
@@ -33,4 +33,5 @@ public class UserController : ControllerBase
             return StatusCode(500, "Ocorreu um erro ao processar a solicitação.");
         }
     }
+
 }

@@ -17,12 +17,12 @@ namespace api.Services
             _userRepository = userRepository;
         }
 
-        public async Task AddNewUser(AddUserRequestDTO user)
+        public async Task RegisterNewUser(RegisterNewUserRequestDTO user)
         {
             try
             {
-                var userModel = _mapper.Map<AddUserRequestDTO, UserModel>(user);
-                await _userRepository.AddNewUser(userModel);
+                var userModel = _mapper.Map<RegisterNewUserRequestDTO, UserModel>(user);
+                await _userRepository.RegisterNewUser(userModel);
             }
             catch (Exception ex)
             {

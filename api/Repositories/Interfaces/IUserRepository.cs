@@ -5,6 +5,6 @@ namespace api.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task AddNewUser(UserModel user);
+        Task RegisterNewUser(UserModel user);
     }
 }
