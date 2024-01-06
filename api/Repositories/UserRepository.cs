@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddNewUser(UserModel user)
+    public async Task RegisterNewUser(UserModel user)
     {
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync();
