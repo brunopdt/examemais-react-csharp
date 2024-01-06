@@ -19,7 +19,7 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleLoginFormChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
       const { name, value, checked } = event.target
       setLoginFormValues({
         ...loginFormValues,
@@ -31,7 +31,7 @@ export const useLogin = () => {
 
   const handleLoginFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
-  ) => {
+  ): Promise<void> => {
     event.preventDefault()
     setIsLoading(true)
     await callLoginApi(loginFormValues)
