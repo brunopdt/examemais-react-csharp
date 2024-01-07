@@ -1,18 +1,3 @@
-import bgImage from '../../assets/welcome-screens-background.jpg';
-import { Card } from './components/card';
-import { Form } from './components/form';
+import { Login as ViewLogin } from './views/login'
 
-export const Login = () => {
-  return (
-    <div style={{ 
-      backgroundImage: `url(${bgImage})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat'
-    }} className='h-svh'>
-      <Card>
-        <Form />
-      </Card>
-    </div>
-  )
-}
+export const Login = () => <ViewLogin />

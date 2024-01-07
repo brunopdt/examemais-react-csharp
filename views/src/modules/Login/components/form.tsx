@@ -1,7 +1,8 @@
 import { Header } from './header'
 import planossaude from '../../../assets/planossaude.png'
 import { useLogin } from '../hooks/useLogin'
-import { LoadingScreen } from '../../../components/loading-screen'
+import { LoadingScreen } from '../../../common/components/loading-screen'
+import { Textfield } from '../../../common/components/textfield'
 
 export const Form = () => {
   const {
@@ -18,26 +19,20 @@ export const Form = () => {
       <LoadingScreen isOpen={isLoading} />
       <Header />
       <form className="mt-5" onSubmit={handleLoginFormSubmit}>
-        <label htmlFor="email" className="text-dark mb-2">
-          E-mail
-        </label>
-        <input
+        <Textfield
+          label="E-mail"
           name="email"
-          type="email"
-          className="w-full bg-background border border-dark px-4 py-2 rounded-md focus:outline-none mb-3 focus:ring-primary/dark"
           value={loginFormValues.email}
           onChange={handleLoginFormChange}
+          type="email"
         />
         <div className="relative">
-          <label htmlFor="password" className="text-dark mb-2">
-            Senha
-          </label>
-          <input
+          <Textfield
+            label="Senha"
             name="password"
-            type={`${showPassword ? 'text' : 'password'}`}
-            className="w-full bg-background border border-dark px-4 py-2 rounded-md focus:outline-none mb-3 focus:ring-primary/dark"
             value={loginFormValues.password}
             onChange={handleLoginFormChange}
+            type={`${showPassword ? 'text' : 'password'}`}
           />
           <div className="absolute right-3 top-1/2 transform -translate-y-1/4 flex items-center text-sm">
             <svg
