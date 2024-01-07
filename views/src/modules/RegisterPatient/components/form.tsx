@@ -2,6 +2,7 @@ import { Header } from './header'
 import { useRegisterPatient } from '../hooks/use-register-patient'
 import { LoadingScreen } from '../../../common/components/loading-screen'
 import { Textfield } from '../../../common/components/textfield'
+import { useNavigate } from 'react-router-dom'
 
 export const Form = () => {
   const {
@@ -17,40 +18,41 @@ export const Form = () => {
     {
       label: 'Nome completo',
       name: 'fullName',
-      value: registerFormValues.fullName, 
+      value: registerFormValues.fullName,
       type: 'text'
     },
     {
       label: 'E-mail',
       name: 'email',
-      value: registerFormValues.email, 
+      value: registerFormValues.email,
       type: 'email'
     },
     {
       label: 'CPF',
       name: 'cpf',
-      value: registerFormValues.cpf, 
+      value: registerFormValues.cpf,
       type: 'text'
     }
   ]
+
+  const navigate = useNavigate()
 
   return (
     <div className="p-10">
       <LoadingScreen isOpen={isLoading} />
       <Header />
       <form className="mt-5" onSubmit={handleRegisterPatientFormSubmit}>
-      {textfieldsFormInputs.map((textfield) => {
+        {textfieldsFormInputs.map(textfield => {
           return (
-            <Textfield 
-            label={textfield.label}
-            name={textfield.name}
-            value={textfield.value}
-            onChange={handleRegisterPatientFormChange}
-            type={textfield.type}
+            <Textfield
+              label={textfield.label}
+              name={textfield.name}
+              value={textfield.value}
+              onChange={handleRegisterPatientFormChange}
+              type={textfield.type}
             />
-          );
+          )
         })}
-
         <div className="relative">
           <Textfield
             label="Senha"
@@ -99,7 +101,12 @@ export const Form = () => {
         </button>
         <h6 className="font-bold mt-2">
           Já possui conta?{' '}
-          <button className="underline text-primary">Faça login!</button>{' '}
+          <button
+            onClick={() => navigate('/')}
+            className="underline text-primary"
+          >
+            Faça login!
+          </button>{' '}
         </h6>{' '}
       </form>
     </div>

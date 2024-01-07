@@ -3,8 +3,10 @@ import planossaude from '../../../assets/planossaude.png'
 import { useLogin } from '../hooks/useLogin'
 import { LoadingScreen } from '../../../common/components/loading-screen'
 import { Textfield } from '../../../common/components/textfield'
+import { useNavigate } from 'react-router-dom'
 
 export const Form = () => {
+  const navigate = useNavigate()
   const {
     loginFormValues,
     handleLoginFormChange,
@@ -87,7 +89,12 @@ export const Form = () => {
         </button>
         <h6 className="font-bold mt-2">
           Ainda não possui conta?{' '}
-          <button className="underline text-primary">Cadastre-se</button>{' '}
+          <button
+            onClick={() => navigate('/register/patient')}
+            className="underline text-primary"
+          >
+            Cadastre-se
+          </button>{' '}
         </h6>{' '}
         <div className="flex justify-center mt-7">
           <img src={planossaude} alt="" width={400} />

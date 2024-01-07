@@ -1,24 +1,26 @@
 import { useCallback, useState } from 'react'
 import { registerService } from '../service/register'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 export interface IRegisterPatientFormValues {
-  fullName: string 
+  fullName: string
   email: string
-  cpf: string 
+  cpf: string
   password: string
 }
 
 export const useRegisterPatient = () => {
   const { callRegisterPatientApi } = registerService()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [registerFormValues, setRegisterPatientFormValues] = useState<IRegisterPatientFormValues>({
-    fullName: '',
-    email: '',
-    cpf: '',
-    password: '',
-  })
+  const [registerFormValues, setRegisterPatientFormValues] =
+    useState<IRegisterPatientFormValues>({
+      fullName: '',
+      email: '',
+      cpf: '',
+      password: ''
+    })
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -38,10 +40,27 @@ export const useRegisterPatient = () => {
   ): Promise<void> => {
     event.preventDefault()
     setIsLoading(true)
-    await callRegisterPatientApi(registerFormValues) ? navigate('/') : alert('deu ruim camaradas')
+    const response = await callRegisterPatientApi(registerFormValues)
     setIsLoading(false)
+    if (!response) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Não foi possível cadastrar sua conta',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return
+    }
 
-    //colocar o navigate, e salvar informações no redux/local storage/cookies
+    Swal.fire({
+      position: 'top-right',
+      icon: 'success',
+      title: 'Conta criada com sucesso!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    navigate('/')
   }
 
   const handleShowPasswordButtonClick = useCallback(() => {
