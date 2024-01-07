@@ -45,6 +45,13 @@ namespace api
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+            builder.Services.AddCors();
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+                c.AllowAnyOrigin();
+            });
             app.Run();
         }
     }
