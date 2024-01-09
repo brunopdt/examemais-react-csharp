@@ -26,11 +26,11 @@ public class PatientController : ControllerBase
             }
 
             await _patientService.RegisterNewPatient(patient);
-            return Ok("Paciente criado com sucesso");
+            return CreatedAtAction(nameof(RegisterNewPatient), new { Message = "Paciente criado com sucesso" });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex);
+            return StatusCode(500, new { Message = ex });
         }
     }
 

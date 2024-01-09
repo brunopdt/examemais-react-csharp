@@ -1,4 +1,5 @@
 ﻿using api.Dtos.Request;
+using api.Dtos.Response;
 using api.Services;
 using api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +8,11 @@ namespace api.Controllers;
 
 [ApiController]
 [Route("api/auth")]
-public class Auth : ControllerBase
+public class AuthController : ControllerBase
 {
     private readonly ILoginService _loginService;
 
-    public Auth(ILoginService loginService)
+    public AuthController(ILoginService loginService)
     {
         _loginService = loginService;
     }
@@ -19,7 +20,15 @@ public class Auth : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestDTO user)
     {
-        await _loginService.Login(user);
-        return Ok("Paciente criado com sucesso");
+        try
+        {
+            LoginResponseDTO response = await _loginService.Login(user);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
     }
+
 }

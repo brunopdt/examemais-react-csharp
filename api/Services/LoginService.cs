@@ -24,24 +24,55 @@ public class LoginService : ILoginService
         _configuration = configuration;
     }
 
-    public async Task<PatientModel> Login(LoginRequestDTO loginRequest)
+    public async Task<LoginResponseDTO> Login(LoginRequestDTO loginRequest)
     {
         LoginModel loginModel = EncryptPassword(loginRequest);
-        PatientModel? patient = await _loginRepository.FindPatientFromLoginRequest(loginModel);
+        PatientModel? patient = await FindPatient(loginModel);
+
         if (patient == null)
         {
             throw new UnauthorizedAccessException("Usuário não encontrado");
         }
 
-        string token = GenerateJwtToken(patient.Id.ToString(), patient.Email);
-        return patient;
+        UpdatePatientTokens(patient);
+
+        await UpdatePatientInDatabase(patient);
+
+
+        return MapReturnPatientToResponseDTO(patient);
     }
-    
+
+    private LoginResponseDTO MapReturnPatientToResponseDTO(PatientModel patient)
+    {
+        return _mapper.Map<LoginResponseDTO>(patient);
+    }
+
+    private async Task<PatientModel?> FindPatient(LoginModel loginModel)
+    {
+        return await _loginRepository.FindPatientFromLoginRequest(loginModel);
+    }
+
+    private void UpdatePatientTokens(PatientModel patient)
+    {
+        if (patient.RefreshToken == null)
+        {
+            patient.RefreshToken = GenerateJwtToken(patient.Id.ToString(), patient.Email);
+        }
+
+        patient.AccessToken = GenerateJwtToken(patient.Id.ToString(), patient.Email);
+    }
+
+    private async Task UpdatePatientInDatabase(PatientModel patient)
+    {
+        await _loginRepository.UpdatePatient(patient);
+    }
+
     public LoginModel EncryptPassword(LoginRequestDTO user)
     {
         var userWithEncryptedPassword = _mapper.Map<LoginRequestDTO, LoginModel>(user);
         return userWithEncryptedPassword;
     }
+
     public string GenerateJwtToken(string userId, string email)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
