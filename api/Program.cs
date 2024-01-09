@@ -22,7 +22,7 @@ namespace api
 
             string connectionString = configuration.GetConnectionString("clinic");
 
-            builder.Services.AddDbContext<ClinicContext>(options =>
+            builder.Services.AddDbContext<Context>(options =>
                 options.UseNpgsql(connectionString));
 
             builder.Services.AddAutoMapper(typeof(RequestToEntity));
@@ -30,8 +30,10 @@ namespace api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IPatientService, PatientService>();
+            builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
             builder.Services.AddScoped<IMapper, Mapper>();
 
             var app = builder.Build();

@@ -3,8 +3,8 @@ using api.Models;
 
 namespace api.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IPatientRepository
     {
-        Task RegisterNewUser(UserModel user);
+        Task RegisterNewPatient(PatientModel user);
     }
 }

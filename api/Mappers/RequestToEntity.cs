@@ -2,14 +2,20 @@
 using AutoMapper;
 using api.Dtos.Request;
 using api.Models;
+using api.Dtos.Response;
 
 public class RequestToEntity : Profile
 {
     public RequestToEntity()
     {
-        CreateMap<RegisterNewUserRequestDTO, UserModel>()
+        CreateMap<RegisterNewPatientRequestDTO, PatientModel>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Password, opt => opt.MapFrom(src => EncryptPassword(src.Password)));
+
+        CreateMap<LoginRequestDTO, LoginModel>()
+            .ForMember(dest => dest.Password, opt => opt.MapFrom(src => EncryptPassword(src.Password)));
+
+        CreateMap<PatientModel, LoginResponseDTO>();
     }
 
     private string EncryptPassword(string password)

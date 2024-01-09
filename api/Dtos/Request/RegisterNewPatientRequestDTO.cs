@@ -3,7 +3,7 @@ using System.Security;
 
 namespace api.Dtos.Request;
 
-public class RegisterNewUserRequestDTO
+public class RegisterNewPatientRequestDTO
 {
     [Required(ErrorMessage = "The full name field is mandatory")]
     public string FullName { get; set; }
