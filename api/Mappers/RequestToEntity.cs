@@ -16,6 +16,10 @@ public class RequestToEntity : Profile
             .ForMember(dest => dest.Password, opt => opt.MapFrom(src => EncryptPassword(src.Password)));
 
         CreateMap<PatientModel, LoginResponseDTO>();
+
+        CreateMap<RegisterNewClinicRequestDTO, ClinicModel>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+            .ForMember(dest => dest.Password, opt => opt.MapFrom(src => EncryptPassword(src.Password)));
     }
 
     private string EncryptPassword(string password)

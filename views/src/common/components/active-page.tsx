@@ -8,23 +8,29 @@ export const ActivePage = ({ page }: ActivePageProps) => {
   const navigate = useNavigate()
 
   return (
-    <div className="flex justify-around gap-3 my-10">
-      <button
-        className={`bg-dark font-bold py-2 px-4 rounded mt-5 w-full text-background drop-shadow-2xl hover:bg-primary transition-all ${
-          page === 'Paciente' ? 'scale-105' : 'scale-90'
-        }`}
+    <div className="flex justify-around gap-5 my-10">
+      <a
         onClick={() => navigate('/register/patient')}
+        className={`group text-dark transition duration-300 cursor-pointer font-bold py-2 mt-5 w-full`}
       >
         Paciente
-      </button>
-      <button
-        className={`bg-dark font-bold py-2 px-4 rounded mt-5 w-full text-background drop-shadow-2xl hover:bg-primary transition-all ${
-          page === 'Clinica' ? 'scale-105' : 'scale-90'
-        }`}
+        <span
+          className={`block max-w-0 ${
+            page === 'Paciente' ? 'max-w-full' : 'group-hover:max-w-full'
+          } transition-all duration-500 h-0.5 bg-primary`}
+        ></span>
+      </a>
+      <a
         onClick={() => navigate('/register/clinic')}
+        className={`group text-dark transition duration-300 cursor-pointer font-bold py-2 mt-5 w-full`}
       >
         Clínica
-      </button>
+        <span
+          className={`block max-w-0 ${
+            page === 'Clinica' ? 'max-w-full' : 'group-hover:max-w-full'
+          } transition-all duration-500 h-0.5 bg-primary`}
+        ></span>
+      </a>
     </div>
   )
 }
