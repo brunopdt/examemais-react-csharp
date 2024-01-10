@@ -3,7 +3,7 @@ import { axiosInstance } from '../../../common/axios-instance'
 import { AxiosResponse } from 'axios'
 
 interface IRegisterClinicRequestDTO {
-  ClinicName: string
+  Name: string
   Address: string
   Cnpj: string
   Email: string
@@ -16,7 +16,7 @@ export const registerService = () => {
   ): Promise<AxiosResponse | undefined> => {
     try {
       const request = {
-        ClinicName: registerFormValues.clinicName,
+        Name: registerFormValues.clinicName,
         Email: registerFormValues.email,
         Cnpj: registerFormValues.cnpj,
         Password: registerFormValues.password,
