@@ -10,6 +10,7 @@ public class Context : DbContext
         
     }
 
-    public DbSet<PatientModel> Patients { get; set; }    
+    public DbSet<PatientModel> Patients { get; set; }
+    public DbSet<ClinicModel> Clinics { get; set; }
 }
 

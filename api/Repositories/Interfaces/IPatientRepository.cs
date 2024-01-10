@@ -1,5 +1,4 @@
-﻿using api.Dtos.Request;
-using api.Models;
+﻿using api.Models;
 
 namespace api.Repositories.Interfaces
 {

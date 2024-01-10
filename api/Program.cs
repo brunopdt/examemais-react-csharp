@@ -34,6 +34,8 @@ namespace api
             builder.Services.AddScoped<IPatientRepository, PatientRepository>();
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<IClinicService, ClinicService>();
+            builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
             builder.Services.AddScoped<IMapper, Mapper>();
 
             var app = builder.Build();
