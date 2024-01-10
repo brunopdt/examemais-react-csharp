@@ -314,3 +314,7 @@ FodyWeavers.xsd
 *.msp
 
 *.sln.iml
+*.exe
+*.dll
+*.pdb
+*.bin

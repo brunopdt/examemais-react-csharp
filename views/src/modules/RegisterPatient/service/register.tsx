@@ -21,9 +21,8 @@ export const registerService = () => {
         Password: registerFormValues.password
       } satisfies IRegisterPatientRequestDTO
 
-      const response = await axiosInstance.post('users/register', request)
+      const response = await axiosInstance.post('patients/register', request)
       return response
-
     } catch (error) {
       console.error(error)
     }

@@ -1,5 +1,5 @@
 import { Header } from './header'
-import { useRegisterPatient } from '../hooks/use-register-patient'
+import { useRegisterClinic } from '../hooks/use-register-clinic'
 import { LoadingScreen } from '../../../common/components/loading-screen'
 import { Textfield } from '../../../common/components/textfield'
 import { useNavigate } from 'react-router-dom'
@@ -8,18 +8,30 @@ import { ActivePage } from '../../../common/components/active-page'
 export const Form = () => {
   const {
     registerFormValues,
-    handleRegisterPatientFormChange,
-    handleRegisterPatientFormSubmit,
+    handleRegisterClinicFormChange,
+    handleRegisterClinicFormSubmit,
     showPassword,
     handleShowPasswordButtonClick,
     isLoading
-  } = useRegisterPatient()
+  } = useRegisterClinic()
 
   const textfieldsFormInputs = [
     {
-      label: 'Nome completo',
-      name: 'fullName',
-      value: registerFormValues.fullName,
+      label: 'Nome da clínica',
+      name: 'clinicName',
+      value: registerFormValues.clinicName,
+      type: 'text'
+    },
+    {
+      label: 'Endereço',
+      name: 'address',
+      value: registerFormValues.address,
+      type: 'text'
+    },
+    {
+      label: 'CNPJ',
+      name: 'cnpj',
+      value: registerFormValues.cnpj,
       type: 'text'
     },
     {
@@ -27,12 +39,6 @@ export const Form = () => {
       name: 'email',
       value: registerFormValues.email,
       type: 'email'
-    },
-    {
-      label: 'CPF',
-      name: 'cpf',
-      value: registerFormValues.cpf,
-      type: 'text'
     }
   ]
 
@@ -42,16 +48,16 @@ export const Form = () => {
     <div className="p-10">
       <LoadingScreen isOpen={isLoading} />
       <Header />
-      <ActivePage page="Paciente" />
+      <ActivePage page="Clinica" />
 
-      <form className="mt-5" onSubmit={handleRegisterPatientFormSubmit}>
+      <form className="mt-5" onSubmit={handleRegisterClinicFormSubmit}>
         {textfieldsFormInputs.map(textfield => {
           return (
             <Textfield
               label={textfield.label}
               name={textfield.name}
               value={textfield.value}
-              onChange={handleRegisterPatientFormChange}
+              onChange={handleRegisterClinicFormChange}
               type={textfield.type}
             />
           )
@@ -61,7 +67,7 @@ export const Form = () => {
             label="Senha"
             name="password"
             value={registerFormValues.password}
-            onChange={handleRegisterPatientFormChange}
+            onChange={handleRegisterClinicFormChange}
             type={`${showPassword ? 'text' : 'password'}`}
           />
           <div className="absolute right-3 top-1/2 transform -translate-y-1/4 flex items-center text-sm">
