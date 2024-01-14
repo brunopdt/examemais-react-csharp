@@ -45,7 +45,7 @@ export const Form = () => {
       <ActivePage page="Paciente" />
 
       <form className="mt-5" onSubmit={handleRegisterPatientFormSubmit}>
-        {textfieldsFormInputs.map(textfield => {
+        {textfieldsFormInputs.map((textfield, index) => {
           return (
             <Textfield
               label={textfield.label}
@@ -53,6 +53,7 @@ export const Form = () => {
               value={textfield.value}
               onChange={handleRegisterPatientFormChange}
               type={textfield.type}
+              key={index}
             />
           )
         })}

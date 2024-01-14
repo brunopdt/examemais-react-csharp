@@ -1,12 +1,8 @@
-import { ReactNode } from 'react'
 import bgImage from '../../assets/welcome-screens-background.jpg'
 import { Card } from './card'
+import { Outlet } from 'react-router-dom'
 
-interface IWelcomeScreenProps {
-  children: ReactNode
-}
-
-export const WelcomeScreen = ({ children }: Readonly<IWelcomeScreenProps>) => {
+export const WelcomeScreen = () => {
   return (
     <div
       style={{
@@ -17,7 +13,9 @@ export const WelcomeScreen = ({ children }: Readonly<IWelcomeScreenProps>) => {
       }}
       className="h-svh"
     >
-      <Card>{children}</Card>
+      <Card>
+        <Outlet />
+      </Card>
     </div>
   )
 }
