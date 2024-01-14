@@ -13,7 +13,8 @@ export const Form = () => {
     handleLoginFormSubmit,
     showPassword,
     handleShowPasswordButtonClick,
-    isLoading
+    isLoading,
+    loginFormErrors
   } = useLogin()
 
   return (
@@ -27,6 +28,7 @@ export const Form = () => {
           value={loginFormValues.email}
           onChange={handleLoginFormChange}
           type="email"
+          error={loginFormErrors.email}
         />
         <div className="relative">
           <Textfield
@@ -35,8 +37,9 @@ export const Form = () => {
             value={loginFormValues.password}
             onChange={handleLoginFormChange}
             type={`${showPassword ? 'text' : 'password'}`}
+            error={loginFormErrors.password}
           />
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/4 flex items-center text-sm">
+          <div className="absolute right-3 top-10 transform -translate-y-1/4 flex items-center text-sm">
             <svg
               className={`h-6 text-gray-700 ${
                 showPassword ? 'hidden' : 'block'
