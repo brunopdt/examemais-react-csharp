@@ -12,7 +12,8 @@ export const Form = () => {
     handleRegisterPatientFormSubmit,
     showPassword,
     handleShowPasswordButtonClick,
-    isLoading
+    isLoading,
+    registerFormErrors
   } = useRegisterPatient()
 
   const textfieldsFormInputs = [
@@ -20,21 +21,26 @@ export const Form = () => {
       label: 'Nome completo',
       name: 'fullName',
       value: registerFormValues.fullName,
-      type: 'text'
+      type: 'text',
+      error: registerFormErrors.fullName
     },
     {
       label: 'E-mail',
       name: 'email',
       value: registerFormValues.email,
-      type: 'email'
+      type: 'email',
+      error: registerFormErrors.email
     },
     {
       label: 'CPF',
       name: 'cpf',
       value: registerFormValues.cpf,
-      type: 'text'
+      type: 'text',
+      error: registerFormErrors.cpf
     }
   ]
+
+  console.log(registerFormErrors)
 
   const navigate = useNavigate()
 
@@ -54,6 +60,7 @@ export const Form = () => {
               onChange={handleRegisterPatientFormChange}
               type={textfield.type}
               key={index}
+              error={textfield.error}
             />
           )
         })}
@@ -64,8 +71,9 @@ export const Form = () => {
             value={registerFormValues.password}
             onChange={handleRegisterPatientFormChange}
             type={`${showPassword ? 'text' : 'password'}`}
+            error={registerFormErrors.password}
           />
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/4 flex items-center text-sm">
+          <div className="absolute right-3 top-10 transform -translate-y-1/4 flex items-center text-sm">
             <svg
               className={`h-6 text-gray-700 ${
                 showPassword ? 'hidden' : 'block'

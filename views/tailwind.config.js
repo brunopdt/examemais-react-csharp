@@ -6,7 +6,8 @@ export default {
       dark: '#344B48',
       light: '#D9EAE7',
       primary: '#3F8C82',
-      background: '#FFFEFA'
+      background: '#FFFEFA',
+      error: '#ff0000'
     }
   },
   plugins: []
