@@ -2,8 +2,17 @@ import { useCallback, useState } from 'react'
 import { registerService } from '../service/register'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { registerPatientSchema } from '../validation/register-patient'
+import { ZodError, ZodIssueBase } from 'zod'
 
 export interface IRegisterPatientFormValues {
+  fullName: string
+  email: string
+  cpf: string
+  password: string
+}
+
+interface IRegisterPatientFormErrors {
   fullName: string
   email: string
   cpf: string
@@ -21,6 +30,13 @@ export const useRegisterPatient = () => {
       cpf: '',
       password: ''
     })
+  const [registerFormErrors, setRegisterPatientFormErrors] =
+    useState<IRegisterPatientFormErrors>({
+      fullName: '',
+      email: '',
+      cpf: '',
+      password: ''
+    })
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -31,18 +47,50 @@ export const useRegisterPatient = () => {
         ...registerFormValues,
         [name]: value
       })
+      setRegisterPatientFormErrors({
+        ...registerFormErrors,
+        [name]: ''
+      })
     },
-    [registerFormValues]
+    [registerFormErrors, registerFormValues]
   )
 
   const handleRegisterPatientFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
-    setIsLoading(true)
-    const response = await callRegisterPatientApi(registerFormValues)
-    setIsLoading(false)
-    if (!response) {
+    try {
+      setIsLoading(true)
+
+      await registerPatientSchema.parse(registerFormValues)
+
+      const response = await callRegisterPatientApi(registerFormValues)
+
+      if (!response) {
+        throw new Error('Não foi possível cadastrar sua conta')
+      }
+
+      Swal.fire({
+        position: 'top-right',
+        icon: 'success',
+        title: 'Conta criada com sucesso!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      navigate('/')
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const errors = JSON.parse(error.message)
+        const updatedErrors = { ...registerFormErrors }
+
+        errors.forEach((error: ZodIssueBase) => {
+          const key = error.path[0] as keyof typeof registerFormErrors
+          updatedErrors[key] = error.message || ''
+        })
+
+        setRegisterPatientFormErrors(updatedErrors)
+      }
+
       Swal.fire({
         position: 'top-end',
         icon: 'error',
@@ -50,17 +98,9 @@ export const useRegisterPatient = () => {
         showConfirmButton: false,
         timer: 1500
       })
-      return
+    } finally {
+      setIsLoading(false)
     }
-
-    Swal.fire({
-      position: 'top-right',
-      icon: 'success',
-      title: 'Conta criada com sucesso!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    navigate('/')
   }
 
   const handleShowPasswordButtonClick = useCallback(() => {
@@ -73,6 +113,7 @@ export const useRegisterPatient = () => {
     handleRegisterPatientFormSubmit,
     showPassword,
     handleShowPasswordButtonClick,
-    isLoading
+    isLoading,
+    registerFormErrors
   }
 }
