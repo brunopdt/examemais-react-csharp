@@ -1,6 +1,7 @@
 ﻿using api.Dtos.Request;
 using api.Dtos.Response;
 using api.Models;
+using api.Models.Interfaces;
 using api.Repositories.Interfaces;
 using api.Services.Interfaces;
 using AutoMapper;
@@ -27,44 +28,49 @@ public class LoginService : ILoginService
     public async Task<LoginResponseDTO> Login(LoginRequestDTO loginRequest)
     {
         LoginModel loginModel = EncryptPassword(loginRequest);
-        PatientModel? patient = await FindPatient(loginModel);
+        IUserModel? user = await FindUser<PatientModel>(loginModel);
 
-        if (patient == null)
+        if (user == null)
+        {
+            user = await FindUser<ClinicModel>(loginModel);
+            
+        }
+
+        if (user == null)
         {
             throw new UnauthorizedAccessException("Usuário não encontrado");
         }
+ 
 
-        UpdatePatientTokens(patient);
-
-        await UpdatePatientInDatabase(patient);
-
-
-        return MapReturnPatientToResponseDTO(patient);
+         UpdateUserTokens(user);
+         await UpdateUserInDatabase(user);
+         return MapReturnUserToResponseDTO(user);
     }
 
-    private LoginResponseDTO MapReturnPatientToResponseDTO(PatientModel patient)
+    private LoginResponseDTO MapReturnUserToResponseDTO<TModel>(TModel user) where TModel : IUserModel
     {
-        return _mapper.Map<LoginResponseDTO>(patient);
+        return _mapper.Map<LoginResponseDTO>(user);
     }
 
-    private async Task<PatientModel?> FindPatient(LoginModel loginModel)
+    private async Task<TModel?> FindUser<TModel>(LoginModel loginModel) where TModel : IUserModel
     {
-        return await _loginRepository.FindPatientFromLoginRequest(loginModel);
+        return await _loginRepository.FindFromLoginRequest<TModel>(loginModel);
     }
 
-    private void UpdatePatientTokens(PatientModel patient)
+
+    private void UpdateUserTokens<TModel>(TModel user) where TModel : IUserModel
     {
-        if (patient.RefreshToken == null)
+        if (user.RefreshToken == null)
         {
-            patient.RefreshToken = GenerateJwtToken(patient.Id.ToString(), patient.Email);
+            user.RefreshToken = GenerateJwtToken(user.Id.ToString(), user.Email);
         }
 
-        patient.AccessToken = GenerateJwtToken(patient.Id.ToString(), patient.Email);
+        user.AccessToken = GenerateJwtToken(user.Id.ToString(), user.Email);
     }
 
-    private async Task UpdatePatientInDatabase(PatientModel patient)
+    private async Task UpdateUserInDatabase<TModel>(TModel user) where TModel : IUserModel
     {
-        await _loginRepository.UpdatePatient(patient);
+        await _loginRepository.Update(user);
     }
 
     public LoginModel EncryptPassword(LoginRequestDTO user)
