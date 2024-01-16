@@ -1,9 +1,8 @@
 ﻿using api.Data;
-using api.Dtos.Request;
 using api.Models;
+using api.Models.Interfaces;
 using api.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace api.Repositories;
 
@@ -16,17 +15,18 @@ public class LoginRepository : ILoginRepository
         _dbContext = dbContext;
     }
 
-    public Task<PatientModel?> FindPatientFromLoginRequest(LoginModel loginModel)
+    public Task<TModel?> FindFromLoginRequest<TModel>(LoginModel loginModel) where TModel : IUserModel
     {
-        return _dbContext.Patients
-            .FirstOrDefaultAsync(patient => patient.Email == loginModel.Email && patient.Password == loginModel.Password);
+        return _dbContext.Set<TModel>()
+            .FirstOrDefaultAsync(model => model.Email == loginModel.Email && model.Password == loginModel.Password);
     }
 
-    public async Task UpdatePatient(PatientModel patient)
+    public async Task Update<TModel>(TModel model) where TModel : IUserModel
     {
-        _dbContext.Update(patient);
+        _dbContext.Update(model);
         await _dbContext.SaveChangesAsync();
     }
+
 
 }
 
