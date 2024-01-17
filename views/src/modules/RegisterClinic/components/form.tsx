@@ -12,7 +12,8 @@ export const Form = () => {
     handleRegisterClinicFormSubmit,
     showPassword,
     handleShowPasswordButtonClick,
-    isLoading
+    isLoading, 
+    registerFormErrors
   } = useRegisterClinic()
 
   const textfieldsFormInputs = [
@@ -20,25 +21,29 @@ export const Form = () => {
       label: 'Nome da clínica',
       name: 'clinicName',
       value: registerFormValues.clinicName,
-      type: 'text'
+      type: 'text',
+      error: registerFormErrors.clinicName
     },
     {
       label: 'Endereço',
       name: 'address',
       value: registerFormValues.address,
-      type: 'text'
+      type: 'text',
+      error: registerFormErrors.address
     },
     {
       label: 'CNPJ',
       name: 'cnpj',
       value: registerFormValues.cnpj,
-      type: 'text'
+      type: 'text',
+      error: registerFormErrors.cnpj
     },
     {
       label: 'E-mail',
       name: 'email',
       value: registerFormValues.email,
-      type: 'email'
+      type: 'email',
+      error: registerFormErrors.email
     }
   ]
 
@@ -60,6 +65,7 @@ export const Form = () => {
               onChange={handleRegisterClinicFormChange}
               type={textfield.type}
               key={index}
+              error={textfield.error}
             />
           )
         })}
@@ -70,6 +76,7 @@ export const Form = () => {
             value={registerFormValues.password}
             onChange={handleRegisterClinicFormChange}
             type={`${showPassword ? 'text' : 'password'}`}
+            error={registerFormErrors.password}
           />
           <div className="absolute right-3 top-10 transform -translate-y-1/4 flex items-center text-sm">
             <svg
