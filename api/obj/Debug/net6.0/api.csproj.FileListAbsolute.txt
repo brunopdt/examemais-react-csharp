@@ -97,3 +97,6 @@ C:\Users\Bruno\Downloads\examemais-react-csharp\api\obj\Debug\net6.0\refint\api.
 C:\Users\Bruno\Downloads\examemais-react-csharp\api\obj\Debug\net6.0\api.pdb
 C:\Users\Bruno\Downloads\examemais-react-csharp\api\obj\Debug\net6.0\api.genruntimeconfig.cache
 C:\Users\Bruno\Downloads\examemais-react-csharp\api\obj\Debug\net6.0\ref\api.dll
+C:\Users\Bruno\Downloads\examemais-react-csharp\api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Bruno\Downloads\examemais-react-csharp\api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Bruno\Downloads\examemais-react-csharp\api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

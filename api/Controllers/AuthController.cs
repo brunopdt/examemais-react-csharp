@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers;
 
 [ApiController]
-[Route("api/auth")]
+[Route("api/auth/public")]
 public class AuthController : ControllerBase
 {
     private readonly ILoginService _loginService;
