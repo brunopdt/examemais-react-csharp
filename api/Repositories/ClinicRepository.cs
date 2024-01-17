@@ -2,6 +2,7 @@
 using api.Dtos.Request;
 using api.Models;
 using api.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories;
 
@@ -19,5 +20,11 @@ public class ClinicRepository : IClinicRepository
         _dbContext.Clinics.Add(clinic);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<ClinicModel>> GetClinics()
+    {
+        return await _dbContext.Clinics.ToListAsync();
+    }
+
 }
 

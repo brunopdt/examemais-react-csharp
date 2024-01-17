@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using api.Repositories.Interfaces;
 using api.Repositories;
-using Microsoft.Extensions.Configuration; 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Text.Json;
 
 namespace api
 {
@@ -38,7 +41,38 @@ namespace api
             builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
             builder.Services.AddScoped<IMapper, Mapper>();
 
+
+            var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+            var jwtKey = builder.Configuration.GetSection("Jwt:Secret").Get<string>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+             .AddJwtBearer(options =>
+             {
+                 options.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuer = true,
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     ValidIssuer = jwtIssuer,
+                     ValidAudience = jwtIssuer,
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                 };
+             });
+
             var app = builder.Build();
+
+            app.UseStatusCodePages(async context =>
+            {
+                var request = context.HttpContext.Request;
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode == 401)
+                {
+                    response.ContentType = "application/json";
+                    await response.WriteAsync(JsonSerializer.Serialize(new { message = "Unauthorized Access" }));
+                }
+            });
 
             if (app.Environment.IsDevelopment())
             {
@@ -47,6 +81,8 @@ namespace api
             }
 
             app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             builder.Services.AddCors();

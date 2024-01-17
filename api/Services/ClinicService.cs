@@ -18,9 +18,15 @@ namespace api.Services
         }
 
         public async Task RegisterNewClinic(RegisterNewClinicRequestDTO clinic)
-        {       
-            var clinicModel = _mapper.Map<RegisterNewClinicRequestDTO, ClinicModel>(clinic);
-            await _clinicRepository.RegisterNewClinic(clinicModel);        
+        {
+            ClinicModel clinicModel = _mapper.Map<RegisterNewClinicRequestDTO, ClinicModel>(clinic);
+            await _clinicRepository.RegisterNewClinic(clinicModel);
+        }
+
+        public async Task<IEnumerable<ClinicModel>> GetClinics()
+        {
+            IEnumerable<ClinicModel> clinics = await _clinicRepository.GetClinics();
+            return clinics;
         }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace api.Services.Interfaces
 {
-    public interface IClinicService
+    public interface IPatientService
     {
-        Task RegisterNewClinic(RegisterNewClinicRequestDTO clinic);
+        Task RegisterNewPatient(RegisterNewPatientRequestDTO user);
     }
 }
