@@ -318,3 +318,5 @@ FodyWeavers.xsd
 *.dll
 *.pdb
 *.bin
+
+.env
