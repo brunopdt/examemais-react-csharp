@@ -89,15 +89,15 @@ export const useRegisterPatient = () => {
         })
 
         setRegisterPatientFormErrors(updatedErrors)
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Não foi possível cadastrar sua conta',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
-
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Não foi possível cadastrar sua conta',
-        showConfirmButton: false,
-        timer: 1500
-      })
     } finally {
       setIsLoading(false)
     }

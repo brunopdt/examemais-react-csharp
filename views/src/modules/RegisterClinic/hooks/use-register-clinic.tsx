@@ -21,7 +21,6 @@ interface IRegisterClinicFormErrors {
   password: string
 }
 
-
 export const useRegisterClinic = () => {
   const { callRegisterClinicApi } = registerService()
   const navigate = useNavigate()
@@ -80,8 +79,7 @@ export const useRegisterClinic = () => {
       })
 
       navigate('/')
-    } catch(error) {
-
+    } catch (error) {
       if (error instanceof ZodError) {
         const errors = JSON.parse(error.message)
         const updatedErrors = { ...registerFormErrors }
@@ -92,15 +90,15 @@ export const useRegisterClinic = () => {
         })
 
         setRegisterClinicFormErrors(updatedErrors)
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Não foi possível cadastrar sua conta',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
-
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Não foi possível cadastrar sua conta',
-        showConfirmButton: false,
-        timer: 1500
-      })
     } finally {
       setIsLoading(false)
     }
