@@ -4,7 +4,7 @@ import { ZodError, ZodIssueBase } from "zod";
 import Swal from "sweetalert2";
 import { loginSchema } from "../validation/login";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookies'
 
 export interface ILoginFormValues {
   email: string;
