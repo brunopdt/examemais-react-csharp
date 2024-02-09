@@ -3,7 +3,7 @@ import { HelperText } from './helper-text'
 export interface ITextfieldProps {
   label: string
   name: string
-  type: string
+  type?: string
   value: string
   error?: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void

@@ -1,6 +1,6 @@
 import { Header } from './header'
 import planossaude from '../../../assets/planossaude.png'
-import { useLogin } from '../hooks/useLogin'
+import { useLogin } from '../hooks/use-login'
 import { LoadingScreen } from '../../../common/components/loading-screen'
 import { Textfield } from '../../../common/components/textfield'
 import { useNavigate } from 'react-router-dom'
@@ -27,7 +27,6 @@ export const Form = () => {
           name="email"
           value={loginFormValues.email}
           onChange={handleLoginFormChange}
-          type="email"
           error={loginFormErrors.email}
         />
         <div className="relative">

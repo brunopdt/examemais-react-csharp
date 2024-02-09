@@ -1,4 +1,4 @@
-import { ILoginFormValues } from '../hooks/useLogin'
+import { ILoginFormValues } from '../hooks/use-login'
 import { axiosInstance } from '../../../common/axios-instance'
 
 interface ILoginRequestDTO {

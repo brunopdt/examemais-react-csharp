@@ -320,3 +320,7 @@ FodyWeavers.xsd
 *.bin
 
 .env
+
+
+**/bin/*
+**/api/obj/*
