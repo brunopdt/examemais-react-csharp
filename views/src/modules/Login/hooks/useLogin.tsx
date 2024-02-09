@@ -106,6 +106,7 @@ export const useLogin = () => {
     Cookies.set('id', id);
     Cookies.set('accessToken', accessToken);
     Cookies.set('refreshToken', refreshToken);
+    console.log(Cookies.get('id'))
   };
 
   return {

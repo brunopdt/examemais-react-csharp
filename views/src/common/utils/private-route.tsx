@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import Cookies from 'js-cookies'
 
 export const PrivateRoute = () => {
-  const token = localStorage.getItem('refreshToken')
+  const token = Cookies.get('accessToken')
 
   const isTokenValid = (): boolean => {
     try {

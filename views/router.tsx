@@ -4,6 +4,7 @@ import { RegisterPatient } from './src/modules/RegisterPatient'
 import { RegisterClinic } from './src/modules/RegisterClinic'
 import { WelcomeScreen } from './src/common/components/welcome-screen'
 import { PrivateRoute } from './src/common/utils/private-route'
+import { MyAppointments } from './src/modules/MyAppointments'
 
 function Router() {
   return (
@@ -16,8 +17,8 @@ function Router() {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route
-            path="/teste"
-            element={<div>Aqui vai ficar um componente</div>}
+            path="/clinic/my-appointments"
+            element={<MyAppointments />}
           />
         </Route>
       </Routes>
