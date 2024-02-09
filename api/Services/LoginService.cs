@@ -32,17 +32,16 @@ public class LoginService : ILoginService
 
         if (user == null)
         {
-            user = await FindUser<ClinicModel>(loginModel);
-            
+            user = await FindUser<ClinicModel>(loginModel);         
         }
 
         if (user == null)
         {
             throw new UnauthorizedAccessException("Usuário não encontrado");
         }
- 
+       
 
-         UpdateUserTokens(user);
+        UpdateUserTokens(user);
          await UpdateUserInDatabase(user);
          return MapReturnUserToResponseDTO(user);
     }

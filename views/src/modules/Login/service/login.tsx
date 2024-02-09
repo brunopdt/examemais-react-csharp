@@ -10,6 +10,7 @@ interface ILoginResponseDTO {
   id: string
   accessToken: string
   refreshToken: string
+  profile: string
 }
 
 export const loginService = () => {
