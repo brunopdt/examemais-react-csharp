@@ -15,11 +15,9 @@ function Router() {
           <Route path="/register/patient" element={<RegisterPatient />} />
           <Route path="/register/clinic" element={<RegisterClinic />} />
         </Route>
-        <Route element={<PrivateRoute />}>
-          <Route
-            path="/clinic/my-appointments"
-            element={<MyAppointments />}
-          />
+
+        <Route element={<PrivateRoute profile="Clinic" />}>
+          <Route path="/clinic/my-appointments" element={<MyAppointments />} />
         </Route>
       </Routes>
     </BrowserRouter>

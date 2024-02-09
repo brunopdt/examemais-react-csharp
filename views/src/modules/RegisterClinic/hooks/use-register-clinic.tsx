@@ -25,7 +25,7 @@ export const useRegisterClinic = () => {
   const { callRegisterClinicApi } = registerService()
   const navigate = useNavigate()
 
-  const [registerFormErrors, setRegisterClinicFormErrors] =
+  const [registerFormErrors, setRegisterFormErrors] =
     useState<IRegisterClinicFormErrors>({
       clinicName: '',
       address: '',
@@ -33,7 +33,7 @@ export const useRegisterClinic = () => {
       cnpj: '',
       password: ''
     })
-  const [registerFormValues, setRegisterClinicFormValues] =
+  const [registerFormValues, setRegisterFormValues] =
     useState<IRegisterClinicFormValues>({
       clinicName: '',
       address: '',
@@ -47,12 +47,16 @@ export const useRegisterClinic = () => {
   const handleRegisterClinicFormChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       const { name, value } = event.target
-      setRegisterClinicFormValues({
+      setRegisterFormValues({
         ...registerFormValues,
         [name]: value
       })
+      setRegisterFormErrors({
+        ...registerFormErrors,
+        [name]: ''
+      })
     },
-    [registerFormValues]
+    [registerFormErrors, registerFormValues]
   )
 
   const handleRegisterClinicFormSubmit = async (
@@ -62,7 +66,7 @@ export const useRegisterClinic = () => {
     try {
       setIsLoading(true)
 
-      await registerClinicSchema.parse(registerFormValues)
+      registerClinicSchema.parse(registerFormValues)
 
       const response = await callRegisterClinicApi(registerFormValues)
 
@@ -86,10 +90,10 @@ export const useRegisterClinic = () => {
 
         errors.forEach((error: ZodIssueBase) => {
           const key = error.path[0] as keyof typeof registerFormErrors
-          updatedErrors[key] = error.message || ''
+          updatedErrors[key] = error.message ?? ''
         })
 
-        setRegisterClinicFormErrors(updatedErrors)
+        setRegisterFormErrors(updatedErrors)
       } else {
         Swal.fire({
           position: 'top-end',

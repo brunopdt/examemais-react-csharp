@@ -1,9 +1,16 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
-import Cookies from 'js-cookies'
+import Cookies from 'js-cookie'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../redux/store'
 
-export const PrivateRoute = () => {
+interface IPrivateRouteProps {
+  profile?: 'Patient' | 'Clinic'
+}
+
+export const PrivateRoute = ({ profile }: IPrivateRouteProps) => {
   const token = Cookies.get('accessToken')
+  const reduxProfile = useSelector((state: RootState) => state.login.profile)
 
   const isTokenValid = (): boolean => {
     try {
@@ -21,5 +28,14 @@ export const PrivateRoute = () => {
     }
   }
 
-  return isTokenValid() ? <Outlet /> : <Navigate to="/" />
+  const isProfileValid = (): boolean => {
+    if (profile) return profile === reduxProfile
+    else return true
+  }
+
+  const validate = (): boolean => {
+    return isProfileValid() && isTokenValid()
+  }
+
+  return validate() ? <Outlet /> : <Navigate to="/" />
 }
