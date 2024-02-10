@@ -4,7 +4,7 @@ import { RegisterPatient } from './src/modules/RegisterPatient'
 import { RegisterClinic } from './src/modules/RegisterClinic'
 import { WelcomeScreen } from './src/common/components/welcome-screen'
 import { PrivateRoute } from './src/common/utils/private-route'
-import { MyAppointments } from './src/modules/MyAppointments'
+import { MyDoctors } from './src/modules/MyDoctors'
 
 function Router() {
   return (
@@ -17,7 +17,7 @@ function Router() {
         </Route>
 
         <Route element={<PrivateRoute profile="Clinic" />}>
-          <Route path="/clinic/my-appointments" element={<MyAppointments />} />
+          <Route path="/clinic/my-doctors" element={<MyDoctors />} />
         </Route>
       </Routes>
     </BrowserRouter>
