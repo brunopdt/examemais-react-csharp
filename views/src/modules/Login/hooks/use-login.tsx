@@ -104,7 +104,7 @@ export const useLogin = () => {
 
   const navigateAfterLogin = (profileType: string) => {
     profileType === 'Clinic'
-      ? navigate('/clinic/my-appointments')
+      ? navigate('/clinic/my-doctors')
       : navigate('/patient/dashboard')
   }
 
